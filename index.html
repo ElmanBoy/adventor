@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <meta charset='utf-8'>
+        <head>
+            <title2>Демонстрация возможностей картографического движка</title2>
+            <meta name = "viewport" content = "width = device-width, height = device-height, user-scalable = no"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="format-detection" content="telephone=no"/>
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        
+            <script src="lib/mapLib.js" type="text/javascript"></script>
+            <script src="lib/mapSources.js" type="text/javascript"></script>
+            <link rel="stylesheet" href="style.css" type="text/css"/>
+        </head>
+        <body>
+            <div class = "item" onclick = "map1.setMapSource(yandexMap)">Я - Карта</div>
+            <div class = "item" onclick = "map1.setMapSource(googleMap)">G - Карта</div>
+            <div class = "item" onclick = "map1.setMapSource(openStreetMap)">OSM - Карта</div>
+            <div class = "item" onclick = "map1.setMapSource(yandexSattelite)">Я - Спутник</div>
+            <div class = "item" onclick = "map1.setMapSource(googleSattelite)">G - Спутник</div>
+            <div id = "map1"/>
+            <script>
+                "use strict";
+                var map1 = new Map('map1', yandexSattelite, {location: [55.751596, 37.620496], zoom: 13.00});
+                document.addEventListener('drawcomplete', customDraw, false);
+
+                function customDraw(event)
+                {
+                    var map = event.detail.map;
+                    var canvas = map.mapCanvas;
+                    var context = map.mapContext;
+                    
+                    context.fillStyle= "rgba(0, 0, 0, 0.5)";
+                    context.fillRect(20, 40, 190, 70);
+                    //context.strokeStyle= "rgba(255, 255, 255, 0.9)";
+                    //context.strokeRect(20, 20, 190, 70);
+                    context.font="13px Tahoma";
+                    context.fillStyle= "rgba(255, 255, 255, 0.9)";
+                    context.fillText(map.getMapCenter().toLocationCoordinate2D(map.mapSource).toString(),30,60);
+
+                    context.fillStyle= "rgba(255, 255, 255, 0.6)";
+                    context.fillText(map.getMapZoom().toFixed(2),30,80);
+                    
+                    context.fillStyle= "rgba(255, 255, 255, 0.6)";
+                    context.fillText(map.mapSource.sourceName,30,100);
+                 }
+                 </script>
+        </body>
+</html>
