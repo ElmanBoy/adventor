@@ -6,5 +6,6 @@
  * Time: 17:06
  */
 
-echo phpinfo();
+phpinfo();
+print_r($_GET);
 ?>
